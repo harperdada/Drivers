@@ -68,3 +68,9 @@ static int __init pkd_init(void)
     return SUCCESS;
 }
 
+static void __exit pkd_exit(void)
+{
+    // free the major number we got while loading the module
+    unregister_chrdev(Major, DEVICE_NAME);
+    printk(KERN_WARNING "PKD: unregistered chrdev major=%d\n", Major);
+}
